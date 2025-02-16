@@ -39,5 +39,18 @@ void main() {
       Finder iconFinder = find.byWidget(icon);
       expect(iconFinder, findsOneWidget);
     });
+
+    testWidgets("Find AppBar With Title", (WidgetTester tester) async {
+      await tester.pumpWidget(MyWidget(title: "T", message: "M"));
+
+      Finder appBarFinder = find.byKey(Key('AppBar'));
+      expect(appBarFinder, findsOneWidget);
+
+      Finder appBarHasTitle = find.descendant(
+        of: appBarFinder,
+        matching: find.text("T"),
+      );
+      expect(appBarHasTitle, findsOneWidget);
+    });
   });
 }
