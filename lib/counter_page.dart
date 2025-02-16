@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CounterPage extends StatefulWidget {
   const CounterPage({super.key});
@@ -8,10 +9,14 @@ class CounterPage extends StatefulWidget {
 }
 
 class _CounterPageState extends State<CounterPage> {
-  int counter = 0;
-  void incrementCounter() {
+  num result = 0;
+
+  TextEditingController controller = TextEditingController();
+
+  void calculateTheSquare() {
+    num numberInput = num.parse(controller.text.trim());
     setState(() {
-      counter++;
+      result = numberInput * numberInput;
     });
   }
 
@@ -23,15 +28,15 @@ class _CounterPageState extends State<CounterPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text("Counter value", style: TextStyle(fontSize: 20)),
-            Text(
-              '$counter',
-              style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+            TextField(
+              controller: controller,
+              keyboardType: TextInputType.number,
             ),
-            const SizedBox(height: 20,),
+            Text("$result", style: TextStyle(fontSize: 20)),
+            const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: incrementCounter,
-              child: const Text('Add One'),
+              onPressed: calculateTheSquare,
+              child: const Text('Calculate'),
             ),
           ],
         ),

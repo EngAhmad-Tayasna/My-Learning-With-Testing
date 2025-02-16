@@ -8,15 +8,22 @@ void main() {
 
     Finder textZero = find.text("0");
     Finder btn = find.byType(ElevatedButton);
+    Finder textField = find.byType(TextField);
 
     expect(textZero, findsOneWidget);
     expect(btn, findsOneWidget);
+    expect(textField, findsOneWidget);
 
+    num input = 5;
+    num result = input * input;
+
+    await tester.enterText(textField, "$input");
     await tester.tap(btn);
     await tester.pumpAndSettle();
 
-    Finder textOne = find.text("1");
-    expect(textOne, findsOneWidget);
+    Finder textResult = find.text("$result");
+
+    expect(textResult, findsOneWidget);
     expect(textZero, findsNothing);
   });
 }
