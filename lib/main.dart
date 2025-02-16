@@ -6,16 +6,27 @@ void main() {
 }
 
 class MyWidget extends StatelessWidget {
-  const MyWidget({super.key, required this.title, required this.message});
+  const MyWidget({
+    super.key,
+    required this.title,
+    required this.message,
+    this.icon,
+  });
   final String title;
   final String message;
+  final Widget? icon;
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(title: Text(title)),
-        body: Center(child: Text(message)),
+        appBar: AppBar(title: Text(title), key: Key('AppBar')),
+        body: Center(child: Row(
+          children: [
+            Text(message),
+            icon ?? SizedBox() ,
+          ],
+        )),
       ),
     );
   }
